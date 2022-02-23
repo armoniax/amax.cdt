@@ -49,7 +49,7 @@ if [ -d "/usr/local/amax.cdt" ]; then
    done
 fi
 
-if [ -d "/usr/local/eosio.wasmsdk" ]; then
+if [ -d "/usr/local/amax.wasmsdk" ]; then
    printf "Do you wish to remove this install? (requires sudo)\n"
    select yn in "Yes" "No"; do
       case $yn in
@@ -59,7 +59,7 @@ if [ -d "/usr/local/eosio.wasmsdk" ]; then
                exit -1
             fi
             pushd /usr/local &> /dev/null
-            rm -rf eosio.wasmsdk
+            rm -rf amax.wasmsdk
             pushd bin &> /dev/null
             for binary in ${binaries[@]}; do
                rm ${binary}

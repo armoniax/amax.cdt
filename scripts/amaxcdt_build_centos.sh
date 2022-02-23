@@ -30,13 +30,13 @@ if [ "${MEM_MEG}" -lt 7000 ]; then
 fi
 
 if [ "${OS_VER}" -lt 7 ]; then
-	printf "\\nYou must be running Centos 7 or higher to install EOSIO.\\n"
+	printf "\\nYou must be running Centos 7 or higher to install AMAX.\\n"
 	printf "Exiting now.\\n\\n"
 	exit 1;
 fi
 
 if [ "${DISK_AVAIL%.*}" -lt "${DISK_MIN}" ]; then
-	printf "\\nYou must have at least %sGB of available storage to install EOSIO.\\n" "${DISK_MIN}"
+	printf "\\nYou must have at least %sGB of available storage to install AMAX.\\n" "${DISK_MIN}"
 	printf "Exiting now.\\n\\n"
 	exit 1;
 fi
@@ -152,7 +152,7 @@ for (( i=0; i<${#DEP_ARRAY[@]}; i++ )); do
 done
 printf "\\n"
 if [ "${COUNT}" -gt 1 ]; then
-	printf "The following dependencies are required to install EOSIO.\\n"
+	printf "The following dependencies are required to install AMAX.\\n"
 	printf "${DISPLAY}\\n\\n"
 	printf "Do you wish to install these dependencies?\\n"
 	select yn in "Yes" "No"; do

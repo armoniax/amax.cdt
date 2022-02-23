@@ -37,13 +37,13 @@ if [ "${MEM_GIG}" -lt 7 ]; then
 fi
 
 if [ "${OS_MIN}" -lt 12 ]; then
-	echo "You must be running Mac OS 10.12.x or higher to install EOSIO."
+	echo "You must be running Mac OS 10.12.x or higher to install AMAX."
 	echo "Exiting now."
 	exit 1
 fi
 
 if [ "${DISK_AVAIL}" -lt "$DISK_MIN" ]; then
-	echo "You must have at least ${DISK_MIN}GB of available storage to install EOSIO."
+	echo "You must have at least ${DISK_MIN}GB of available storage to install AMAX."
 	echo "Exiting now."
 	exit 1
 fi
@@ -117,7 +117,7 @@ if [ ! -d /usr/local/Frameworks ]; then
 fi
 
 if [ $COUNT -gt 1 ]; then
-	printf "\\nThe following dependencies are required to install EOSIO:\\n"
+	printf "\\nThe following dependencies are required to install AMAX:\\n"
 	printf "${DISPLAY}\\n\\n"
 	if [ $1 == 0 ]; then read -p "Do you wish to install these packages? (y/n) " answer; fi
 	case ${answer} in
@@ -136,7 +136,7 @@ if [ $COUNT -gt 1 ]; then
 				[Nn]* ) echo "Proceeding without update!";;
 				* ) echo "Please type 'y' for yes or 'n' for no."; exit;;
 			esac
-			brew tap eosio/eosio
+			brew tap amax/amax
 			printf "\\nInstalling Dependencies...\\n"
 			# DON'T INSTALL llvm@4 WITH --force!
 			OIFS="$IFS"

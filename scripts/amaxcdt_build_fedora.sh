@@ -38,13 +38,13 @@ if [ "${MEM_MEG}" -lt 7000 ]; then
 fi
 
 if [ "${OS_VER}" -lt 25 ]; then
-	printf "You must be running Fedora 25 or higher to install EOSIO.\\n"
+	printf "You must be running Fedora 25 or higher to install AMAX.\\n"
 	printf "Exiting now.\\n"
 	exit 1;
 fi
 
 if [ "${DISK_AVAIL%.*}" -lt "${DISK_MIN}" ]; then
-	printf "You must have at least %sGB of available storage to install EOSIO.\\n" "${DISK_MIN}"
+	printf "You must have at least %sGB of available storage to install AMAX.\\n" "${DISK_MIN}"
 	printf "Exiting now.\\n"
 	exit 1;
 fi
@@ -92,7 +92,7 @@ for (( i=0; i<${#DEP_ARRAY[@]}; i++ )); do
 	fi
 done
 if [ "${COUNT}" -gt 1 ]; then
-	printf "The following dependencies are required to install EOSIO.\\n"
+	printf "The following dependencies are required to install AMAX.\\n"
 	printf "${DISPLAY}\\n"
 	printf "Do you wish to install these dependencies?\\n"
 	select yn in "Yes" "No"; do

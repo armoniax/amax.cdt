@@ -1,7 +1,7 @@
 #!/bin/bash
 ##########################################################################
-# This is the EOSIO automated install script for Linux and Mac OS.
-# This file was downloaded from https://github.com/EOSIO/eos
+# This is the AMAX automated install script for Linux and Mac OS.
+# This file was downloaded from https://github.com/armoniax/amachain
 #
 # Copyright (c) 2017, Respective Authors all rights reserved.
 #
@@ -27,7 +27,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-# https://github.com/EOSIO/eos/blob/master/LICENSE.txt
+# https://github.com/armoniax/amachain/blob/master/LICENSE.txt
 ##########################################################################
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -57,7 +57,7 @@ if ! pushd "${BUILD_DIR}" &> /dev/null; then
 fi
 
 if ! make install; then
-   printf "\\nMAKE installing EOSIO has exited with the above error.\\n\\n"
+   printf "\\nMAKE installing AMAX has exited with the above error.\\n\\n"
    exit -1
 fi
 popd &> /dev/null 
@@ -75,11 +75,11 @@ printf "    \\  \\::/       \\  \\::/        /__/:/        \\__\\/      \\  \\::
 printf "     \\__\\/         \\__\\/         \\__\\/                     \\__\\/ \n\n${txtrst}"
 
 printf "==============================================================================================\\n"
-printf "EOSIO has been installed into ${OPT_LOCATION}/amax.cdt/bin!\\n"
+printf "AMAX has been installed into ${OPT_LOCATION}/amax.cdt/bin!\\n"
 printf "If you need to, you can fully uninstall using amaxcdt_uninstall.sh.\\n"
 printf "==============================================================================================\\n\\n"
 
 printf "For more information:\\n"
-printf "EOSIO website: https://eos.io\\n"
-printf "EOSIO resources: https://eos.io/resources/\\n"
-printf "EOSIO Stack Exchange: https://eosio.stackexchange.com\\n"
+printf "AMAX website: https://eos.io\\n"
+printf "AMAX resources: https://eos.io/resources/\\n"
+printf "AMAX Stack Exchange: https://eosio.stackexchange.com\\n"

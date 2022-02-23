@@ -58,8 +58,8 @@ fi
 
 if [ ! -d "${REPO_ROOT}/.git" ]; then
    printf "\\nThis build script only works with sources cloned from git\\n"
-   printf "Please clone a new eos directory with 'git clone https://github.com/EOSIO/eos --recursive'\\n"
-   printf "See the wiki for instructions: https://github.com/EOSIO/eos/wiki\\n"
+   printf "Please clone a new eos directory with 'git clone https://github.com/armoniax/amachain --recursive'\\n"
+   printf "See the wiki for instructions: https://github.com/armoniax/amachain/wiki\\n"
    exit 1
 fi
 
@@ -153,7 +153,7 @@ mkdir -p $BUILD_DIR
 cd $BUILD_DIR
 
 printf "\\n========================================================================\\n"
-printf "======================= Starting EOSIO.CDT Build =======================\\n"
+printf "======================= Starting AMAX.CDT Build =======================\\n"
 
 $CMAKE -DCMAKE_INSTALL_PREFIX=$OPT_LOCATION/amax.cdt "${REPO_ROOT}"
 if [ $? -ne 0 ]; then exit -1; fi
@@ -174,12 +174,12 @@ printf "\t   \\  \\:\\/:/     \\  \\:\\/:/     \\__\\/ /:/       /__/:/    \\  \
 printf "\t    \\  \\::/       \\  \\::/        /__/:/        \\__\\/      \\  \\::/ \n"
 printf "\t     \\__\\/         \\__\\/         \\__\\/                     \\__\\/ \n${txtrst}"
 
-printf "\\nEOSIO.CDT has been successfully built. %02d:%02d:%02d\\n\\n" $(($TIME_END/3600)) $(($TIME_END%3600/60)) $(($TIME_END%60))
+printf "\\nAMAX.CDT has been successfully built. %02d:%02d:%02d\\n\\n" $(($TIME_END/3600)) $(($TIME_END%3600/60)) $(($TIME_END%60))
 printf "${txtrst}==============================================================================================\\n"
 
 printf "For more information:\\n"
-printf "EOSIO website: https://eos.io\\n"
-printf "EOSIO Telegram channel @ https://t.me/EOSProject\\n"
-printf "EOSIO resources: https://eos.io/resources/\\n"
-printf "EOSIO Stack Exchange: https://eosio.stackexchange.com\\n"
-printf "EOSIO wiki: https://github.com/EOSIO/eos/wiki\\n\\n\\n"
+printf "AMAX website: https://eos.io\\n"
+printf "AMAX Telegram channel @ https://t.me/EOSProject\\n"
+printf "AMAX resources: https://eos.io/resources/\\n"
+printf "AMAX Stack Exchange: https://eosio.stackexchange.com\\n"
+printf "AMAX wiki: https://github.com/armoniax/amachain/wiki\\n\\n\\n"

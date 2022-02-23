@@ -32,14 +32,14 @@ fi
 case "${OS_NAME}" in
 	"Linux Mint")
 		if [ "${OS_MAJ}" -lt 18 ]; then
-			printf "You must be running Linux Mint 18.x or higher to install EOSIO.\\n"
+			printf "You must be running Linux Mint 18.x or higher to install AMAX.\\n"
 			printf "Exiting now.\\n"
 			exit 1
 		fi
 	;;
 	"Ubuntu")
 		if [ "${OS_MAJ}" -lt 16 ]; then
-			printf "You must be running Ubuntu 16.04.x or higher to install EOSIO.\\n"
+			printf "You must be running Ubuntu 16.04.x or higher to install AMAX.\\n"
 			printf "Exiting now.\\n"
 			exit 1
 		fi
@@ -52,7 +52,7 @@ case "${OS_NAME}" in
 	;;
 	"Debian")
 		if [ $OS_MAJ -lt 10 ]; then
-			printf "You must be running Debian 10 to install EOSIO, and resolve missing dependencies from unstable (sid).\n"
+			printf "You must be running Debian 10 to install AMAX, and resolve missing dependencies from unstable (sid).\n"
 			printf "Exiting now.\n"
 			exit 1
 	fi
@@ -60,7 +60,7 @@ case "${OS_NAME}" in
 esac
 
 if [ "${DISK_AVAIL%.*}" -lt "${DISK_MIN}" ]; then
-	printf "You must have at least %sGB of available storage to install EOSIO.\\n" "${DISK_MIN}"
+	printf "You must have at least %sGB of available storage to install AMAX.\\n" "${DISK_MIN}"
 	printf "Exiting now.\\n"
 	exit 1
 fi
@@ -115,7 +115,7 @@ do
 done		
 
 if [ "${COUNT}" -gt 1 ]; then
-	printf "\\nThe following dependencies are required to install EOSIO.\\n"
+	printf "\\nThe following dependencies are required to install AMAX.\\n"
 	printf "\\n${DISPLAY}\\n\\n" 
 	printf "Do you wish to install these packages?\\n"
 	select yn in "Yes" "No"; do
