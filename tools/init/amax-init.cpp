@@ -96,12 +96,12 @@ struct project {
                                     "   - run the command 'make'\n\n"
                                     " - After build -\n" 
                                     "   - The built smart contract is under the '@' directory in the 'build' directory\n"
-                                    "   - You can then do a 'set contract' action with 'cleos' and point in to the './build/@' directory\n\n"
+                                    "   - You can then do a 'set contract' action with 'amcli' and point in to the './build/@' directory\n\n"
                                     " - Additions to CMake should be done to the CMakeLists.txt in the './src' directory and not in the top level CMakeLists.txt";
 
    const std::string readme_bare = " --- @ Project ---\n\n"
                                    " - How to Build -\n"
-                                   "   - run the command 'eosio-cpp -abigen -o @.wasm @.cpp'\n";
+                                   "   - run the command 'amax-cpp -abigen -o @.wasm @.cpp'\n";
 
    std::string replace_name( const std::string& in ) {
       std::stringstream ss;
@@ -185,9 +185,9 @@ struct project {
 int main(int argc, const char **argv) {
 
    cl::SetVersionPrinter([](llvm::raw_ostream& os) {
-        os << "eosio-init version " << "@VERSION_FULL@" << "\n";
+        os << "amax-init version " << "@VERSION_FULL@" << "\n";
   });
-   cl::OptionCategory cat("eosio-init", "generates an eosio smart contract project");
+   cl::OptionCategory cat("amax-init", "generates an eosio smart contract project");
    
    cl::opt<bool> bare_opt(
       "bare",
@@ -203,7 +203,7 @@ int main(int argc, const char **argv) {
       cl::desc("directory to place the project"),
       cl::cat(cat));
 
-   cl::ParseCommandLineOptions(argc, argv, std::string("eosio-proj"));
+   cl::ParseCommandLineOptions(argc, argv, std::string("amax-proj"));
    try {
       if (!std::regex_match(project_name, std::regex("^[_a-zA-Z][_a-zA-Z0-9]*$"))) {
          throw std::runtime_error("ERROR: invalid identifier: " + project_name + " (ensure that it is a valid C++ identifier)");

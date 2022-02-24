@@ -61,30 +61,30 @@ sudo make install
 ```sh
 $ sudo rm -fr /usr/local/amax.cdt
 $ sudo rm -fr /usr/local/lib/cmake/amax.cdt
-$ sudo rm /usr/local/bin/eosio-*
+$ sudo rm /usr/local/bin/amax-*
 ```
 
 
 # Installed Tools
 
-* eosio-cpp
-* eosio-cc
-* eosio-ld
-* eosio-init
-* eosio-abidiff
-* eosio-wasm2wast
-* eosio-wast2wasm
-* eosio-ranlib
-* eosio-ar
-* eosio-objdump
-* eosio-readelf
+* amax-cpp
+* amax-cc
+* amax-ld
+* amax-init
+* amax-abidiff
+* amax-wasm2wast
+* amax-wast2wasm
+* amax-ranlib
+* amax-ar
+* amax-objdump
+* amax-readelf
 
 Below tools are not installed after brew install, you get them only by building the repository and installing from scracth, [see here](#guided_installation_or_building_from_scratch)
-eosio-abidiff
-eosio-ranlib
-eosio-ar
-eosio-objdump
-eosio-readelf
+amax-abidiff
+amax-ranlib
+amax-ar
+amax-objdump
+amax-readelf
 
 
 License

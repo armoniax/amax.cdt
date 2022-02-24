@@ -275,7 +275,7 @@ namespace eosio { namespace cdt {
 
       std::string generate_json_comment() {
          std::stringstream ss;
-         ss << "This file was generated with eosio-abigen.";
+         ss << "This file was generated with amax-abigen.";
          ss << " DO NOT EDIT ";
          return ss.str(); 
       }

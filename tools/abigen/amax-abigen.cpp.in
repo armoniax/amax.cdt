@@ -290,7 +290,7 @@ class abigen : public generation_utils {
 
    std::string generate_json_comment() {
       std::stringstream ss;
-      ss << "This file was generated with eosio-abigen.";
+      ss << "This file was generated with amax-abigen.";
       ss << " DO NOT EDIT";
       return ss.str();
    }
@@ -525,9 +525,9 @@ class EosioRecordMatcher : public MatchFinder::MatchCallback {
 int main(int argc, const char **argv) {
 
    cl::SetVersionPrinter([](llvm::raw_ostream& os) {
-        os << "eosio-abigen version " << "${VERSION_FULL}" << "\n";
+        os << "amax-abigen version " << "${VERSION_FULL}" << "\n";
   });
-   cl::OptionCategory cat("eosio-abigen", "generates an abi from C++ project input");
+   cl::OptionCategory cat("amax-abigen", "generates an abi from C++ project input");
 
    cl::opt<std::string> abidir(
     "output",
@@ -600,7 +600,7 @@ int main(int argc, const char **argv) {
    finder.addMatcher(record_decl_matcher, &eosio_record_matcher);
    finder.addMatcher(class_tmp_matcher, &eosio_record_matcher);
 
-   llvm::errs() << "Warning, this tool is deprecated.  Only use eosio-cpp in the future." << '\n';
+   llvm::errs() << "Warning, this tool is deprecated.  Only use amax-cpp in the future." << '\n';
    int tool_run = -1;
    try {
       tool_run = tool.run(newFrontendActionFactory(&finder).get());

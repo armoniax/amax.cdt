@@ -31,7 +31,7 @@ Unexpected input encountered while processing struct 'action_name_here'
 ```
 __Possible solution__: You did not specify correctly the parameter when sending the action to the blockchain. When no parameter is needed the command should look like the one below:
 ```sh
-cleos push action eostutorial1 get '[]' -p eostutorial1@active
+amcli push action eostutorial1 get '[]' -p eostutorial1@active
 ```
 The command above is one way of sending correctly `get` action with no parameters to the blockchain.
 
@@ -48,7 +48,7 @@ Error 3160010: No abi file found
 or
 Error 3160009: No wasm file found
 ```
-__Possible solution__: Verify that `abi` and `wasm` files exist in the directory specified in the `cleos set contract` command, and that their names match the directory name.
+__Possible solution__: Verify that `abi` and `wasm` files exist in the directory specified in the `amcli set contract` command, and that their names match the directory name.
 
 ## Action triggers ram charge which cannot be initiated from a notification.
 
@@ -74,9 +74,9 @@ Couldn't parse type_name
 ```
 __Possible solution__: It is possible that you changed the type of the fields for the table struct definition? If you need to change the table structure definition there are some limitations and a couple of ways to do it which are explained in the [Data Design and Migration](./05_best-practices/04_data-design-and-migration.md) section.
 
-## eosio-cpp process never completes.
+## amax-cpp process never completes.
 
-__Possible solution__: make sure you have at least 2 cores on the host that executes the eosio-cpp (e.g. docker container, VM, local sub-system)
+__Possible solution__: make sure you have at least 2 cores on the host that executes the amax-cpp (e.g. docker container, VM, local sub-system)
 
 ## You can not find the `now()` time function, or the result of the `current_time_point` functions are not what you expected them to be.
 

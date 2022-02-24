@@ -6,10 +6,10 @@ content_title: How to configure CMake
 
 ### Automatic generation of CMake configuration
 
-To compile an EOSIO smart contract with CMake, you'll need a CMake file. To use the new `eosio-init` tool to generate the directory structure stub .hpp/.cpp files and the cmake configuration files follow these steps:
+To compile an EOSIO smart contract with CMake, you'll need a CMake file. To use the new `amax-init` tool to generate the directory structure stub .hpp/.cpp files and the cmake configuration files follow these steps:
 
 1. cd ~
-2. eosio-init --path=. --project=test_contract
+2. amax-init --path=. --project=test_contract
 3. cd test_contract
 4. cd build
 5. cmake ..

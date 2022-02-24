@@ -13,7 +13,7 @@ Follow these steps to compile your contract:
 ```sh
 $ mkdir build
 $ cd build
-$ eosio-cpp -abigen ../src/hello.cpp -o hello.wasm -I ../include/
+$ amax-cpp -abigen ../src/hello.cpp -o hello.wasm -I ../include/
 ```
 3. This will generate two files:
 - The compiled binary wasm, hello.wasm

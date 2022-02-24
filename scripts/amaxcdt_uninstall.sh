@@ -3,19 +3,19 @@
 OPT_LOCATION=$HOME/opt
 
 binaries=(
-   eosio-ranlib
-   eosio-ar
-   eosio-objdump
-   eosio-readelf
-   eosio-abigen
-   eosio-wasm2wast
-   eosio-wast2wasm
-   eosio-pp
-   eosio-cc
-   eosio-cpp
-   eosio-ld
-   eosio-abidiff
-   eosio-init
+   amax-ranlib
+   amax-ar
+   amax-objdump
+   amax-readelf
+   amax-abigen
+   amax-wasm2wast
+   amax-wast2wasm
+   amax-pp
+   amax-cc
+   amax-cpp
+   amax-ld
+   amax-abidiff
+   amax-init
    llvm-readelf
    llvm-objdump
    llvm-ar

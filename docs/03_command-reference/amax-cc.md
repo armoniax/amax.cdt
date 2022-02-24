@@ -1,11 +1,11 @@
 ---
-content_title: eosio-cc tool
+content_title: amax-cc tool
 ---
 
-To manually compile the source code, use `eosio-cc` and `eosio-ld` as if it were __clang__ and __lld__. All the includes and options specific to EOSIO and CDT are baked in.
+To manually compile the source code, use `amax-cc` and `amax-ld` as if it were __clang__ and __lld__. All the includes and options specific to EOSIO and CDT are baked in.
 
 ```
-USAGE: eosio-cc [options] <input file> ...
+USAGE: amax-cc [options] <input file> ...
 
 OPTIONS:
 

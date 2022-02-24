@@ -1,12 +1,12 @@
 ---
-content_title: eosio-ld tool
+content_title: amax-ld tool
 ---
 
-The eosio-ld tool is a the custom web assembly linker for EOSIO platform smart contracts.
+The amax-ld tool is a the custom web assembly linker for EOSIO platform smart contracts.
 
 
 ```
-USAGE: eosio-ld [options] <input file> ...
+USAGE: amax-ld [options] <input file> ...
 
 OPTIONS:
 

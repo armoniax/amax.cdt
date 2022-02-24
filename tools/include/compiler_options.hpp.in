@@ -41,12 +41,12 @@ static cl::opt<bool> use_old_malloc_opt(
     cl::Hidden,
     cl::cat(LD_CAT));
 static cl::opt<std::string> eosio_imports_opt(
-    "eosio-imports",
+    "amax-imports",
     cl::desc("Set the file for eosio.imports"),
     cl::Hidden,
     cl::cat(LD_CAT));
 static cl::opt<std::string> pp_path_opt(
-    "eosio-pp-dir",
+    "amax-pp-dir",
     cl::desc("Set the directory for eosio.pp"),
     cl::Hidden,
     cl::cat(LD_CAT));
@@ -656,7 +656,7 @@ static Options CreateOptions(bool add_defaults=true) {
       copts.emplace_back("-I"+sysroot_opt+"/include/libcxx");
       copts.emplace_back("-I"+sysroot_opt+"/include/libc");
 
-      // only allow capi for native builds and for eosio-cc
+      // only allow capi for native builds and for amax-cc
       if (fnative_opt) {
         copts.emplace_back("-I"+sysroot_opt+"/include/eosiolib/capi");
         copts.emplace_back("-I"+sysroot_opt+"/include/eosiolib/native");
@@ -790,7 +790,7 @@ static Options CreateOptions(bool add_defaults=true) {
    if (!fnative_opt) {
 #ifndef ONLY_LD
       if (!eosio_imports_opt.empty()) {
-         ldopts.emplace_back("-eosio-imports="+eosio_imports_opt);
+         ldopts.emplace_back("-amax-imports="+eosio_imports_opt);
       }
 #else
       if (!eosio_imports_opt.empty()) {

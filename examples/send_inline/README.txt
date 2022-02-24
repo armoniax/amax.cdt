@@ -8,15 +8,15 @@
 
  - After build -
    - The built smart contract is under the 'send_inline' directory in the 'build' directory
-   - You can then do a 'set contract' action with 'cleos' and point to the './build/send_inline' directory
+   - You can then do a 'set contract' action with 'amcli' and point to the './build/send_inline' directory
 
  - Additions to CMake should be done to the CMakeLists.txt in the './src' directory and not in the top level CMakeLists.txt
 
- -- How to build with eosio-cpp --
+ -- How to build with amax-cpp --
    - mkdir build
    - cd into the 'build' directory
-   - run the command 'eosio-cpp -abigen ../src/send_inline.cpp -o send_inline.wasm -I ../include/ -I ../../hello/include/'
+   - run the command 'amax-cpp -abigen ../src/send_inline.cpp -o send_inline.wasm -I ../include/ -I ../../hello/include/'
 
  - After build -
    - The built smart contract is in the 'build' directory
-   - You can then do a 'set contract' action with 'cleos' and point to the 'build' directory
+   - You can then do a 'set contract' action with 'amcli' and point to the 'build' directory
