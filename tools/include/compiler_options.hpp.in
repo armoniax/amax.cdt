@@ -480,7 +480,9 @@ static void GetLdDefaults(std::vector<std::string>& ldopts) {
 
    } else {
 #ifdef __APPLE__
-      ldopts.emplace_back("-arch x86_64 -macosx_version_min 10.13 -framework Foundation -framework System");
+      // ldopts.emplace_back("-arch x86_64 -macosx_version_min 10.13 -framework Foundation -framework System");
+      // fix compile error: mac os x 12.x not support options "-framework Foundation -framework System"
+      ldopts.emplace_back("-arch x86_64 -macosx_version_min 10.13");
 #endif
       ldopts.emplace_back("-static");
       ldopts.emplace_back("-lnative_c++ -lnative_c -lnative_eosio -lnative -lnative_rt");
