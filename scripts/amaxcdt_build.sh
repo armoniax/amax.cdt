@@ -4,7 +4,7 @@ printf "=========== amax.cdt ===========\n\n"
 
 VERSION=2.1 # Build script version
 CMAKE_BUILD_TYPE=Release
-export DISK_MIN=20
+export DISK_MIN=10
 DOXYGEN=false
 ENABLE_COVERAGE_TESTING=false
 CORE_SYMBOL_NAME="SYS"
@@ -142,7 +142,7 @@ else
 fi
 
 cd $SRC_LOCATION
-. "$FILE" # Execute OS specific build file
+. "$FILE" 0 # Execute OS specific build file
 
 CORES_AVAIL=`getconf _NPROCESSORS_ONLN`
 MEM_CORES=$(( ${FREE_MEM}/4000000 )) # 4 gigabytes per core

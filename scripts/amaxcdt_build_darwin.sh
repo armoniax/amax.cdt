@@ -36,7 +36,7 @@ if [ "${MEM_GIG}" -lt 7 ]; then
 	exit 1
 fi
 
-if [ "${OS_MIN}" -lt 12 ]; then
+if [ $(( OS_MAJ*100+OS_MIN )) -lt 1012 ]; then
 	echo "You must be running Mac OS 10.12.x or higher to install AMAX."
 	echo "Exiting now."
 	exit 1
@@ -136,7 +136,7 @@ if [ $COUNT -gt 1 ]; then
 				[Nn]* ) echo "Proceeding without update!";;
 				* ) echo "Please type 'y' for yes or 'n' for no."; exit;;
 			esac
-			brew tap amax/amax
+			## brew tap amax/amax
 			printf "\\nInstalling Dependencies...\\n"
 			# DON'T INSTALL llvm@4 WITH --force!
 			OIFS="$IFS"
