@@ -50,7 +50,7 @@ sudo yum remove amax.cdt
 
 ## Guided Installation or Building from Scratch
 ```sh
-git clone --recursive https://github.com/armoniax/amax.cdt
+git clone --recursive git@github.com:armoniax/amax.cdt.git
 cd amax.cdt
 mkdir build
 cd build
