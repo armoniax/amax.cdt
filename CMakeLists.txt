@@ -47,18 +47,18 @@ include(modules/ToolsExternalProject.txt)
 set(WASM_SDK_BUILD true)
 
 ### Configure the AmaxWasmToolchain.cmakes
-set(CDT_ROOT_DIR ${CMAKE_BINARY_DIR})
+set(CDT_ROOT_DIR ${CDT_INSTALL_PREFIX})
 
 configure_file(${CMAKE_SOURCE_DIR}/modules/amax.cdt-config.cmake ${CMAKE_BINARY_DIR}/lib/cmake/amax.cdt/amax.cdt-config.cmake @ONLY)
 configure_file(${CMAKE_SOURCE_DIR}/modules/AmaxCDTMacros.cmake.in ${CMAKE_BINARY_DIR}/lib/cmake/amax.cdt/AmaxCDTMacros.cmake @ONLY)
 configure_file(${CMAKE_SOURCE_DIR}/modules/AmaxWasmToolchain.cmake.in ${CMAKE_BINARY_DIR}/lib/cmake/amax.cdt/AmaxWasmToolchain.cmake @ONLY)
 
-set(CDT_ROOT_DIR ${CDT_INSTALL_PREFIX})
+# set(CDT_ROOT_DIR ${CDT_INSTALL_PREFIX})
 
-configure_file(${CMAKE_SOURCE_DIR}/modules/amax.cdt-config.cmake ${CMAKE_BINARY_DIR}/modules/amax.cdt-config.cmake @ONLY)
-configure_file(${CMAKE_SOURCE_DIR}/modules/AmaxCDTMacros.cmake.in ${CMAKE_BINARY_DIR}/modules/AmaxCDTMacros.cmake @ONLY)
-configure_file(${CMAKE_SOURCE_DIR}/modules/AmaxWasmToolchain.cmake.in ${CMAKE_BINARY_DIR}/modules/AmaxWasmToolchain.cmake @ONLY)
-install(FILES ${CMAKE_BINARY_DIR}/modules/AmaxCDTMacros.cmake DESTINATION ${CDT_INSTALL_PREFIX}/lib/cmake/amax.cdt)
+# configure_file(${CMAKE_SOURCE_DIR}/modules/amax.cdt-config.cmake ${CMAKE_BINARY_DIR}/modules/amax.cdt-config.cmake @ONLY)
+# configure_file(${CMAKE_SOURCE_DIR}/modules/AmaxCDTMacros.cmake.in ${CMAKE_BINARY_DIR}/modules/AmaxCDTMacros.cmake @ONLY)
+# configure_file(${CMAKE_SOURCE_DIR}/modules/AmaxWasmToolchain.cmake.in ${CMAKE_BINARY_DIR}/modules/AmaxWasmToolchain.cmake @ONLY)
+# install(FILES ${CMAKE_BINARY_DIR}/modules/AmaxCDTMacros.cmake DESTINATION ${CDT_INSTALL_PREFIX}/lib/cmake/amax.cdt)
 
 set(CDT_ROOT_DIR "_PREFIX_")
 configure_file(${CMAKE_SOURCE_DIR}/modules/AmaxCDTMacros.cmake.in ${CMAKE_BINARY_DIR}/modules/EosioCDTMacrosPackage.cmake @ONLY)
