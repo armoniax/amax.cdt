@@ -277,6 +277,9 @@ extern "C" {
    int64_t get_account_creation_time( capi_name account ) {
       return intrinsics::get().call<intrinsics::get_account_creation_time>(account);
    }
+   capi_name get_account_creator( capi_name account ) {
+      return intrinsics::get().call<intrinsics::get_account_creator>(account);
+   }
    uint64_t  current_time() {
       return intrinsics::get().call<intrinsics::current_time>();
    }

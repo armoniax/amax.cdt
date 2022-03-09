@@ -29,6 +29,9 @@ namespace eosio {
 
          __attribute__((eosio_wasm_import))
          int64_t get_account_creation_time(uint64_t);
+
+         __attribute__((eosio_wasm_import))
+         int64_t get_account_creator(uint64_t);
       }
    }
 
@@ -204,5 +207,17 @@ namespace eosio {
                microseconds(
                   internal_use_do_not_use::get_account_creation_time(account.value)));
 
+   }
+
+   /**
+    *  Returns the creator of an account
+    *
+    *  @param account - the account
+    *
+    *  @return the creator of the account
+    */
+   __attribute__((eosio_wasm_import))
+   name get_account_creator( name account ) {
+      return name(internal_use_do_not_use::get_account_creator(account.value));
    }
 }

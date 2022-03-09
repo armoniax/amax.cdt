@@ -79,6 +79,17 @@ int64_t get_permission_last_used( capi_name account, capi_name permission );
 __attribute__((eosio_wasm_import))
 int64_t get_account_creation_time( capi_name account );
 
+
+/**
+ *  Returns the creator of an account
+ *
+ *  @param account - the account
+ *
+ *  @return the creator of the account
+ */
+__attribute__((eosio_wasm_import))
+capi_name get_account_creator( capi_name account );
+
 #ifdef __cplusplus
 }
 #endif
