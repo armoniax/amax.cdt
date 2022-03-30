@@ -1,13 +1,12 @@
-name: Docker Image CI
+name: Build & Release
+on: [pull_request, push]
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+env:
+  PR_NUMBER: ${{ toJson(github.event.number) }}
+
 
 jobs:
- submodule_regression_check:
+  submodule_regression_check:
     if: github.event.pull_request.base.repo.id != github.event.pull_request.head.repo.id
     name: Submodule Regression Check
     runs-on: ubuntu-latest
