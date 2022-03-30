@@ -1,5 +1,5 @@
 # AMAX.CDT (Contract Development Toolkit)
-## Version : 1.7.0
+## Version : 1.7.5
 
 ***[ forked from [EOSIO.CDT](https://github.com/EOSIO/eosio.cdt) ]***
 
