@@ -1,7 +1,7 @@
 # AMAX.CDT (Contract Development Toolkit)
 ## Version : 1.7.5
 
-***[ forked from [EOSIO.CDT](https://github.com/EOSIO/eosio.cdt) ]***
+***[ Forked from [EOSIO.CDT](https://github.com/EOSIO/eosio.cdt) ]***
 
 
 `AMAX.CDT` is a toolchain for WebAssembly (WASM) and set of tools to facilitate smart contract development for the AMAX platform. In addition to being a general purpose WebAssembly toolchain, [AMAX](https://github.com/armoniax/amax.chain) specific optimizations are available to support building AMAX smart contracts.  This new toolchain is built around [Clang 7](https://github.com/eosio/llvm), which means that `AMAX.CDT` has the most currently available optimizations and analyses from LLVM, but as the `WASM` target is still considered experimental, some optimizations are incomplete or not available.
