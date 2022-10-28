@@ -1705,7 +1705,12 @@ class multi_index
                            = secondary_index_db_functions<typename index_type::secondary_key_type>::db_idx_find_primary( _code.value, _scope, index_type::name(), pk,  temp_secondary_key );
                }
 
-               secondary_index_db_functions<typename index_type::secondary_key_type>::db_idx_update( indexitr, payer.value, secondary );
+               if (indexitr < 0) {
+                  // Support to add index data (if not exist) for the current modifying row
+                  mutableitem.__iters[index_type::number()] = secondary_index_db_functions<typename index_type::secondary_key_type>::db_idx_store( _scope, index_type::name(), payer.value, pk, secondary );
+               } else {
+                  secondary_index_db_functions<typename index_type::secondary_key_type>::db_idx_update( indexitr, payer.value, secondary );
+               }
             }
          });
       }
