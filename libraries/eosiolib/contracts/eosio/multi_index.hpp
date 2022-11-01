@@ -338,6 +338,7 @@ namespace _multi_index_detail {
  *  @ingroup multiindex
  *  @tparam IndexName - is the name of the index. The name must be provided as an EOSIO base32 encoded 64-bit integer and must conform to the EOSIO naming requirements of a maximum of 13 characters, the first twelve from the lowercase characters a-z, digits 1-5, and ".", and if there is a 13th character, it is restricted to lowercase characters a-p and ".".
  *  @tparam Extractor - is a function call operator that takes a const reference to the table object type and returns either a secondary key type or a reference to a secondary key type. It is recommended to use the `eosio::const_mem_fun` template, which is a type alias to the `boost::multi_index::const_mem_fun`. See the documentation for the Boost `const_mem_fun` key extractor for more details.
+ *  @tparam Nullable  - Indicates whether the index can be null. default is false.
  *
  *  Example:
        *
@@ -364,10 +365,11 @@ namespace _multi_index_detail {
  *  EOSIO_DISPATCH( mycontract, (myaction) )
  *  @endcode
  */
-template<name::raw IndexName, typename Extractor>
+template<name::raw IndexName, typename Extractor, bool Nullable = false>
 struct indexed_by {
    enum constants { index_name   = static_cast<uint64_t>(IndexName) };
    typedef Extractor secondary_extractor_type;
+   static constexpr bool nullable = Nullable;
 };
 
 /**
@@ -478,7 +480,7 @@ class multi_index
 
       mutable std::vector<item_ptr> _items_vector;
 
-      template<name::raw IndexName, typename Extractor, uint64_t Number, bool IsConst>
+      template<name::raw IndexName, typename Extractor, bool Nullable, uint64_t Number, bool IsConst>
       struct index {
          public:
             typedef Extractor  secondary_extractor_type;
@@ -500,6 +502,7 @@ class multi_index
 
             constexpr static uint64_t name()   { return index_table_name; }
             constexpr static uint64_t number() { return Number; }
+            constexpr static uint64_t nullable() { return Nullable; }
 
             struct const_iterator : public std::iterator<std::bidirectional_iterator_tag, const T> {
                public:
@@ -687,12 +690,14 @@ class multi_index
                const auto& objitem = static_cast<const item&>(obj);
                eosio::check( objitem.__idx == _multidx, "object passed to iterator_to is not in multi_index" );
 
-               if( objitem.__iters[Number] == -1 ) {
+               if( objitem.__iters[Number] < 0 ) {
                   secondary_key_type temp_secondary_key;
                   auto idxitr = secondary_index_db_functions<secondary_key_type>::db_idx_find_primary(get_code().value, get_scope(), name(), objitem.primary_key(), temp_secondary_key);
                   auto& mi = const_cast<item&>( objitem );
                   mi.__iters[Number] = idxitr;
                }
+
+               if( objitem.__iters[Number] < 0 ) return cend();
 
                return {this, &objitem};
             }
@@ -713,6 +718,72 @@ class multi_index
                _multidx->erase(obj);
 
                return itr;
+            }
+
+            /**
+             *  Emplace the secondary index of an existing object in a table.
+             *  @ingroup multiindex
+             *
+             *  @param idx - the secondary index
+             *  @param obj - a reference to the object to be updated
+             *  @param payer - account name of the payer for the Storage usage of the updated row
+             *
+             *  @pre idx is got by get_index()
+             *  @pre obj is an existing object in the table, and it's secondary index is null (not existing in the table)
+             *  @pre payer is a valid account that is authorized to execute the action and be billed for storage usage.
+             *
+             *  @post The secondary index are emplaced
+             *  @post The payer is charged for the storage usage of the emplaced index.
+             *
+             *  Exceptions:
+             *  If called with an invalid precondition, execution is aborted.
+             *
+             *  Example:
+             *
+             *  @code
+             *  // This assumes the code from the constructor example. Replace myaction() {...}
+             *
+             *      void myaction() {
+             *        // create reference to address_index  - see emplace example
+             *        // add dan account to table           - see emplace example
+             *
+             *        auto idx = addresses.get_index<"bycityhash">();
+             *        auto itr = addresses.find("dan"_n);
+             *        eosio::check(itr != addresses.end(), "Address for account not found");
+             *        addresses.modify( *itr, payer, [&]( auto& address ) {
+             *          address.city = "San Luis Obispo";
+             *          address.state = "CA";
+             *          if (idx.iterator_to(obj) == idx.end()) {
+             *             auto idx_itr = idx.emplace_index(idx);
+             *             eosio::check(idx_itr != idx.end(), "Lock arf, city index of Address not extended")
+             *          }
+             *        });
+             *        eosio::check(itr->city == "San Luis Obispo", "Lock arf, Address not modified");
+             *      }
+             *  }
+             *  EOSIO_DISPATCH( addressbook, (myaction) )
+             *  @endcode
+             */
+            const_iterator emplace_index( const T& obj, const eosio::name& payer ) {
+               using namespace _multi_index_detail;
+
+               const auto& objitem = static_cast<const item&>(obj);
+               eosio::check( objitem.__idx == _multidx, "object passed to emplace_index is not in multi_index" );
+               auto& mutableitem = const_cast<item&>(objitem);
+               eosio::check( get_code() == current_receiver(), "cannot modify objects in table of another contract" ); // Quick fix for mutating db using multi_index that shouldn't allow mutation. Real fix can come in RC2.
+
+               auto pk = obj.primary_key();
+               auto indexitr = mutableitem.__iters[Number];
+               if( indexitr < 0 ) {
+                  secondary_key_type temp_secondary_key;
+                  indexitr = secondary_index_db_functions<secondary_key_type>::db_idx_find_primary( get_code().value, get_scope(), name(), pk,  temp_secondary_key );
+               }
+               eosio::check( indexitr < 0, "secondary index of object existed" );
+
+               auto secondary = extract_secondary_key( obj );
+               mutableitem.__iters[Number] = secondary_index_db_functions<secondary_key_type>::db_idx_store( get_scope(), name(), payer.value, pk, secondary );
+
+               return {this, &objitem};
             }
 
             eosio::name get_code()const  { return _multidx->get_code(); }
@@ -745,10 +816,10 @@ class multi_index
              typedef typename std::decay<decltype(hana::at_c<0>(idx))>::type num_type;
              typedef typename std::decay<decltype(hana::at_c<1>(idx))>::type idx_type;
              return hana::make_tuple( hana::type_c<index<eosio::name::raw(static_cast<uint64_t>(idx_type::index_name)),
-                                                         typename idx_type::secondary_extractor_type,
+                                                         typename idx_type::secondary_extractor_type, idx_type::nullable,
                                                          num_type::e::value, false> >,
                                       hana::type_c<index<eosio::name::raw(static_cast<uint64_t>(idx_type::index_name)),
-                                                         typename idx_type::secondary_extractor_type,
+                                                         typename idx_type::secondary_extractor_type, idx_type::nullable,
                                                          num_type::e::value, true> > );
 
          });
@@ -1706,8 +1777,8 @@ class multi_index
                }
 
                if (indexitr < 0) {
-                  // Support to add index data (if not exist) for the current modifying row
-                  mutableitem.__iters[index_type::number()] = secondary_index_db_functions<typename index_type::secondary_key_type>::db_idx_store( _scope, index_type::name(), payer.value, pk, secondary );
+                  eosio::check( index_type::nullable(), "a non-nullable index can not be null when modifying an object" );
+                  // nullable index can remain null
                } else {
                   secondary_index_db_functions<typename index_type::secondary_key_type>::db_idx_update( indexitr, payer.value, secondary );
                }
