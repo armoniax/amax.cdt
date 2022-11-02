@@ -15,11 +15,13 @@ namespace eosio {
     *
     *  @ingroup binary_extension
     *  @tparam T - Contained typed
+    *  @tparam IsSerializeDefault - is serialize default value
     */
-   template <typename T>
+   template <typename T, bool IsSerializeDefault = true>
    class binary_extension {
       public:
          using value_type = T;
+         static constexpr bool is_serialize_default = IsSerializeDefault;
 
          constexpr binary_extension() {}
          constexpr binary_extension( const T& ext )
@@ -178,9 +180,13 @@ namespace eosio {
     *  @tparam DataStream - Type of datastream buffer
     *  @return DataStream& - Reference to the datastream
     */
-   template<typename DataStream, typename T>
-   inline DataStream& operator<<(DataStream& ds, const eosio::binary_extension<T>& be) {
-     ds << be.value_or();
+   template<typename DataStream, typename T, bool IsSerializeDefault>
+   inline DataStream& operator<<(DataStream& ds, const eosio::binary_extension<T, IsSerializeDefault>& be) {
+      if (be.has_value()) {
+         ds << be.value();
+      } else if (eosio::binary_extension<T>::is_serialize_default) {
+         ds << T();
+      }
      return ds;
    }
 
@@ -194,8 +200,8 @@ namespace eosio {
     *  @tparam DataStream - Type of datastream buffer
     *  @return DataStream& - Reference to the datastream
     */
-   template<typename DataStream, typename T>
-   inline DataStream& operator>>(DataStream& ds, eosio::binary_extension<T>& be) {
+   template<typename DataStream, typename T, bool IsSerializeDefault>
+   inline DataStream& operator>>(DataStream& ds, eosio::binary_extension<T, IsSerializeDefault>& be) {
      if( ds.remaining() ) {
         T val;
         ds >> val;
