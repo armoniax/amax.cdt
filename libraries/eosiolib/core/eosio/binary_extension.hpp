@@ -59,6 +59,37 @@ namespace eosio {
             }
          }
 
+         constexpr binary_extension& operator=( const binary_extension& other )
+         {
+            if (other._has_value) {
+               if (_has_value) {
+                  _get() = other._get();
+               } else {
+                  ::new (&_data) T( *other );
+               }
+               _has_value = true;
+            } else {
+               reset();
+            }
+            return *this;
+         }
+
+         constexpr binary_extension& operator=( binary_extension&& other )
+         {
+            if (other._has_value) {
+               if (_has_value) {
+                  _get() = std::move(other._get());
+               } else {
+                  ::new (&_data) T( *std::move(other) );
+               }
+               other._has_value = false;
+               _has_value = true;
+            } else {
+               reset();
+            }
+            return *this;
+         }
+
          /** test if container is holding a value */
          constexpr explicit operator bool()const { return _has_value; }
          /** test if container is holding a value */

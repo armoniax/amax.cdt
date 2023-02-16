@@ -472,6 +472,15 @@ EOSIO_TEST_BEGIN(datastream_stream_test)
    ds >> be_default_test;
    CHECK_EQUAL( 42, be_default_test.value_or().val )
 
+   static const binary_extension<vector<char>> be_cp_src{vector<char>{100, 'c'}};
+   binary_extension<vector<char>> be_cp_v1{};
+   binary_extension<vector<char>> be_cp_v2{vector<char>{100, 'a'}};
+   be_cp_v1 = be_cp_src;
+   CHECK_EQUAL( be_cp_v1.value(), be_cp_src.value() )
+   be_cp_v2 = std::move(be_cp_v1);
+   CHECK_EQUAL( be_cp_v1.has_value(), false )
+   CHECK_EQUAL( be_cp_v2.value(), be_cp_src.value() )
+
    // ------------------
    // eosio::fixed_bytes
    ds.seekp(0);
